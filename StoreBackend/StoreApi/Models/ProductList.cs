@@ -2,6 +2,9 @@
 {
 	public class ProductList
 	{
-		public ProductListItem[] Items { get; set; } = Array.Empty<ProductListItem>();
+		public IReadOnlyCollection<ProductListItem> Items { get; set; } = Array.Empty<ProductListItem>();
+
+		public int? Page { get; set; }
+		public int? Total { get; set; }
 	}
 }

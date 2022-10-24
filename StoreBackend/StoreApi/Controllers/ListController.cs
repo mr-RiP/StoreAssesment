@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StoreApi.Enums;
 using StoreApi.Models;
-using StoreDatabase;
-using StoreDatabase.Enums;
-using StoreDatabase.Models;
-using System.Data;
-using System.Data.Entity;
+using StoreApi.Repositories;
 
 namespace StoreApi.Controllers
 {
@@ -12,40 +9,46 @@ namespace StoreApi.Controllers
 	[Route("[controller]")]
 	public class ListController : ControllerBase
 	{
-		private static int PageSize = 10;
+		private readonly IListRepository _repository;
 
+		private static readonly int PageSize = 20;
+		private static readonly int MaxIdsLength = 100;
 
-		[Route("GetPage/{page}")]
-		public async Task<ActionResult<ProductList>> GetPage(int page, int? category, bool? showAll)
+		public ListController(IListRepository listRepository)
+		{
+			_repository = listRepository;
+		}
+
+		[HttpGet]
+		[Route("GetByPage/{page}")]
+		public async Task<ActionResult<ProductList>> GetByPage(
+			int page,
+			int? category = null,
+			bool availableOnly = true,
+			ListSort sort = ListSort.NameAsc)
 		{
 			if (page < 1)
 			{
 				return BadRequest();
 			}
 
-			using (var context = new StoreDatabaseContext())
+			var result = await _repository.GetProductListByPageAsync(page, PageSize, availableOnly, category, sort);
+
+			return Ok(result);
+		}
+
+		[HttpGet]
+		[Route("GetByIds")]
+		public async Task<ActionResult<ProductList>> GetByPage([FromQuery] int[] ids)
+		{
+			if (ids.Length == 0 || ids.Length > MaxIdsLength)
 			{
-				IQueryable<Product> source = context.Products;
-
-				if (showAll != true)
-				{
-					source = source.Where(p => p.Status == Status.Available);
-				}
-
-				if (category != null)
-				{
-					source = source.Where(p => p.CategoryId == category);
-				}
-
-				var itemArray = await source
-					.OrderBy(p => p.Name)
-					.Skip((page - 1) * PageSize)
-					.Take(PageSize)
-					.Select(p => new ProductListItem { Id = p.Id, Name = p.Name!, Price = p.Price })
-					.ToArrayAsync();
-
-				return new ProductList { Items = itemArray };
+				return BadRequest();
 			}
+
+			var result = await _repository.GetProductListByIdsAsync(ids);
+
+			return Ok(result);
 		}
 	}
 }

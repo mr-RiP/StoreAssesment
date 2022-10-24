@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreApi", "StoreApi\StoreApi.csproj", "{81AC3B6F-69E3-4A60-9AE1-762F645ED9DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreDatabase", "StoreDatabase\StoreDatabase.csproj", "{2F82A36A-6F98-4F5F-A78A-BA72D866A358}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreDatabase", "StoreDatabase\StoreDatabase.csproj", "{2F82A36A-6F98-4F5F-A78A-BA72D866A358}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
