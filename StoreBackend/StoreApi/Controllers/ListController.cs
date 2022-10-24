@@ -41,7 +41,7 @@ namespace StoreApi.Controllers
 		[Route("GetByIds")]
 		public async Task<ActionResult<ProductList>> GetByPage([FromQuery] int[] ids)
 		{
-			if (ids.Length == 0 || ids.Length > MaxIdsLength)
+			if (ids == null || ids.Length == 0 || ids.Length > MaxIdsLength)
 			{
 				return BadRequest();
 			}
