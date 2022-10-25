@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react'
-import styles from '../styles/Home.module.css'
 import StoreFooter from './StoreFooter'
 import StoreHeader from './StoreHeader'
 import StoreMain from './StoreMain'
@@ -10,13 +9,13 @@ type Props = {
 
 const StoreContainer: FunctionComponent<Props> = ({ children }) => {
 	return (
-		<div className={styles.container}>
+		<div className="container">
 			<StoreHeader />
-
+			
 			<StoreMain>
 				{children}
 			</StoreMain>
-			
+
 			<StoreFooter />
 		</div>
 	)
