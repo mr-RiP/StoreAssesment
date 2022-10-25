@@ -24,6 +24,9 @@ namespace StoreDatabase.Models
 		[Required]
 		public decimal Price { get; set; }
 
+		[MaxLength(50)]
+		public string? Image { get; set; }
+
 		public virtual Category Category { get; set; } = null!;
 	}
 }

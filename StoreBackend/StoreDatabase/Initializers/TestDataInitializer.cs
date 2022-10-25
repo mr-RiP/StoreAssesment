@@ -36,7 +36,7 @@ namespace StoreDatabase.Initializers
 				new Product { Id = ProductRaspberryYogurt, Name = "Йогурт клубничный", CategoryId = CategoryMilk, Status = Status.Available, Price = 225 },
 				new Product { Id = ProductSteak, Name = "Стейк из говядины", CategoryId = CategoryMeat, Status = Status.Available, Price = 2119 },
 				new Product { Id = ProductSausages, Name = "Сосиски конские", CategoryId = CategoryMeat, Status = Status.Available, Price = 1050 },
-				new Product { Id = ProductCocaCola, Name = "Coca-Cola Classic", CategoryId = CategoryDrinks, Status = Status.Available, Price = 609 },
+				new Product { Id = ProductCocaCola, Name = "Coca-Cola Classic", CategoryId = CategoryDrinks, Status = Status.Available, Price = 609, Image = "926426fe-9acb-4ced-843e-d102e43edc04.jpg" },
 				new Product { Id = ProductSprite, Name = "Sprite", CategoryId = CategoryDrinks, Status = Status.Draft, Price = 619 }
 			};
 

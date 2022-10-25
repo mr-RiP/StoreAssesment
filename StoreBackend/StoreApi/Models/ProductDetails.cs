@@ -18,6 +18,8 @@ namespace StoreApi.Models
 
 		public int? Quantity { get; set; }
 
+		public string? Image { get; set; }
+
 		public ProductError? Error { get; set; }
 
 	}

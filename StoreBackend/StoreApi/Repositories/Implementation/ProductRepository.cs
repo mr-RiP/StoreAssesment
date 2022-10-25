@@ -3,7 +3,6 @@ using StoreApi.Models;
 using StoreDatabase;
 using StoreDatabase.Enums;
 using StoreDatabase.Models;
-using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 
 namespace StoreApi.Repositories.Implementation
@@ -27,6 +26,7 @@ namespace StoreApi.Repositories.Implementation
 					product.CategoryId = model.CategoryId;
 					product.Status = MapStatusToDatabase(model.Status);
 					product.Price = model.Price;
+					product.Image = model.Image;
 
 					if (newProduct)
 					{
@@ -154,6 +154,7 @@ namespace StoreApi.Repositories.Implementation
 				Price = product.Price,
 				Status = MapStatusToModel(product.Status),
 				Quantity = inventory?.StoredQuantity,
+				Image = product.Image,
 				Error = error
 			};
 		}
