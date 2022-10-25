@@ -18,33 +18,31 @@ namespace StoreApi.Repositories.Implementation
 			{
 				using (var context = new StoreDatabaseContext())
 				{
-					if (model.Id == 0)
-					{
-						var product = new Product
-						{
-							Name = model.Name,
-							CategoryId = model.CategoryId,
-							Status = MapStatusToDatabase(model.Status),
-							Price = model.Price
-						};
+					var newProduct = model.Id == 0;
+					var product = newProduct
+						? new Product()
+						: await context.Products.FirstAsync(p => p.Id == model.Id);
 
+					product.Name = model.Name;
+					product.CategoryId = model.CategoryId;
+					product.Status = MapStatusToDatabase(model.Status);
+					product.Price = model.Price;
+
+					if (newProduct)
+					{
 						context.Products.Add(product);
-					}
-					else
-					{
-						var product = await context.Products.FirstAsync(p => p.Id == model.Id);
-						product.Name = model.Name;
-						product.CategoryId = model.CategoryId;
-						product.Status = MapStatusToDatabase(model.Status);
-						product.Price = model.Price;
+
+						await context.SaveChangesAsync();
+
+						model.Id = product.Id;
 					}
 
-					var inventory = await context.Inventory.FirstOrDefaultAsync(p => p.ProductId == model.Id);
+					var inventory = await context.Inventory.FirstOrDefaultAsync(p => p.ProductId == product.Id);
 					if (inventory == null)
 					{
 						inventory = new Inventory
 						{
-							ProductId = model.Id
+							ProductId = product.Id
 						};
 
 						context.Inventory.Add(inventory);
