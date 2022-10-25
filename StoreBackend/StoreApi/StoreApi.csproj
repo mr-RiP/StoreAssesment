@@ -17,4 +17,8 @@
     <ProjectReference Include="..\StoreDatabase\StoreDatabase.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Content\Original\" />
+  </ItemGroup>
+
 </Project>
